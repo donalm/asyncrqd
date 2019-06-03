@@ -1,0 +1,9 @@
+grpc:
+  connect:
+    host: localhost
+    port: 8443
+  listen:
+    port: 8444
+daemon:
+  log:
+    path: /var/log/asyncrqd/asyncrqd.log

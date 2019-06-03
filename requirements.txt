@@ -1,0 +1,7 @@
+grpclib
+protobuf
+grpclib
+grpcio-tools
+uvloop
+pyyaml
+black
