@@ -3,6 +3,7 @@
 export BASEDIR=$(cd -P -- "$(dirname -- "$(/usr/bin/realpath -- "$(dirname -- "$BASH_SOURCE")")")" && printf '%s\n' "$(pwd -P)")
 source "${BASEDIR}/bin/tooling/update_environment.sh"
 cd $BASEDIR
+echo $SUDO_USER
 
 export LOGDIR=/var/log/asyncrqd
 mkdir -p $LOGDIR
@@ -28,16 +29,21 @@ if [[ "$?" != "0" ]]; then
     echo "failed to create temp directory"
     exit 1
 fi
-mkdir -p "${tmpdir}/python/proto"
+mkdir -p "${tmpdir}/python/asyncrqd/proto"
+mkdir -p "${tmpdir}/asyncrqd/proto"
 
-cp -a "${BASEDIR}/proto"  "${tmpdir}/proto"
-cd "${tmpdir}/proto"
-sed -i -E 's/^import "/import "proto\//' *.proto
+cp -a "${BASEDIR}/proto"  "${tmpdir}/asyncrqd/."
+cd "${tmpdir}/asyncrqd/proto"
+sed -i -E 's/^import "/import "asyncrqd\/proto\//' *.proto
 cd "${tmpdir}"
 
-python -m grpc_tools.protoc -I./ --python_out=./python --grpc_python_out=./python --python_grpc_out=./python ./proto/*.proto
-touch "${tmpdir}/python/proto/__init__.py"
-cp -a "${tmpdir}/python/proto" "${BASEDIR}/python/asyncrqd/"
+python -m grpc_tools.protoc -I./ --python_out=./python --grpc_python_out=./python --python_grpc_out=./python ./asyncrqd/proto/*.proto
+touch "${tmpdir}/python/asyncrqd/proto/__init__.py"
+
+if [[ ! -z "${SUDO_USER}" ]]; then
+    chown -R $SUDO_USER $tmpdir
+fi
+cp -a "${tmpdir}/python/asyncrqd/proto" "${BASEDIR}/python/asyncrqd/"
 rm -rf "${tmpdir}"
 
 cd "${BASEDIR}/python"

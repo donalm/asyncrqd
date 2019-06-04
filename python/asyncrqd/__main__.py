@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+"""Main entry point for the Async RQD Daemon."""
 
-
-from asyncrqd import log
+from . import log
+from . import grpc_server
 
 logger = log.get_logger()
-logger.error("ok log")
+logger.error("starting asyncrqd")
 
-print("ASYNCRQD")
+grpc_server.run()

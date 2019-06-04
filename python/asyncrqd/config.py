@@ -25,7 +25,7 @@ class Config(object):
     def refresh(cls):
         with open(cls._config_filepath, "r") as fh:
             try:
-                cls._config_data = yaml.load(fh.read())
+                cls._config_data = yaml.safe_load(fh.read())
             except Exception as e:
                 log.exception(
                     "failed to refresh config from {}: {}".format(
@@ -38,5 +38,6 @@ class Config(object):
         if cls._config is None:
             cls.init()
         return cls._config_data.get(key, default_value)
+
 
 get = Config.get
