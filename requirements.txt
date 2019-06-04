@@ -1,4 +1,4 @@
-grpclib
+grpclib --pre
 protobuf
 grpclib
 grpcio-tools
@@ -6,3 +6,11 @@ uvloop
 pyyaml
 black
 structlog
+flake8
+flake8-import-order
+flake8-mutable
+flake8-polyfill
+flake8-pep3101
+flake8-docstrings
+ipython
+psutil
