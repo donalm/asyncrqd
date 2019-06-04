@@ -5,3 +5,4 @@ grpcio-tools
 uvloop
 pyyaml
 black
+structlog

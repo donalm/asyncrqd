@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Basic config data for asyncrqd."""
 
+import os
 import traceback
 
 import yaml
@@ -8,21 +9,34 @@ from . import log
 
 
 class Config(object):
-    def __init__(self, config_file):
-        self._config_file = config_file
-        self.refresh()
+    """Configuration data object."""
 
-    def refresh(self):
-        with open(self._config_file) as fh:
+    _config = None
+    _default_filepath = os.path.join(
+        os.environ.get("BASEDIR", "."), "config", "asyncrqd.yaml"
+    )
+
+    @classmethod
+    def init(cls, config_filepath=None):
+        cls._config_filepath = config_filepath or cls._default_filepath
+        cls.refresh()
+
+    @classmethod
+    def refresh(cls):
+        with open(cls._config_filepath, "r") as fh:
             try:
-                self._config_data = yaml.load(fh.read())
+                cls._config_data = yaml.load(fh.read())
             except Exception as e:
                 log.exception(
-                    "failed to refresh config from {}: {}".format(self._config_file, e)
+                    "failed to refresh config from {}: {}".format(
+                        cls._config_filepath, e
+                    )
                 )
 
-    def get(self, key, value=None):
-        return self._config_data.get(key, value)
+    @classmethod
+    def get(cls, key, default_value=None):
+        if cls._config is None:
+            cls.init()
+        return cls._config_data.get(key, default_value)
 
-    def set(self, key, value):
-        raise NotImplementedError("config object is immutable")
+get = Config.get
