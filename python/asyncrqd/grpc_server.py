@@ -29,30 +29,46 @@ class RqdInterface(rqd_grpc.RqdInterfaceBase):
     async def LaunchFrame(self, stream):
         """Respond to CueBot request to launch a frame."""
         request: rqd_pb2.RqdStaticLaunchFrameRequest = await stream.recv_message()
+        print("===============================================")
+        print('request')
+        print(request)
+        print('type request')
+        print(type(request))
+        print('dir request')
+        print(dir(request))
+        print("===============================================")
+        print('request.run_frame')
+        print(request.run_frame)
+        print('type request.run_frame')
+        print(type(request.run_frame))
+        print('dir request.run_frame')
+        print(dir(request.run_frame))
+        print("===============================================")
+        run_frame = request.run_frame
         self.logger.debug(
             "Received LaunchFrame",
-            resource_id=request.resource_id,
-            job_id=request.job_id,
-            job_name=request.job_name,
-            frame_id=request.frame_id,
-            frame_name=request.frame_name,
-            layer_id=request.layer_id,
-            command=request.command,
-            user_name=request.user_name,
-            log_dir=request.log_dir,
-            show=request.show,
-            shot=request.shot,
-            job_temp_dir=request.job_temp_dir,
-            frame_temp_dir=request.frame_temp_dir,
-            log_file=request.log_file,
-            log_dir_file=request.log_dir_file,
-            start_time=request.start_time,
-            uid=request.uid,
-            num_cores=request.num_cores,
-            gid=request.gid,
-            ignore_nimby=request.ignore_nimby,
-            environment=request.environment,
-            attributes=request.attributes,
+            resource_id=run_frame.resource_id,
+            job_id=run_frame.job_id,
+            job_name=run_frame.job_name,
+            frame_id=run_frame.frame_id,
+            frame_name=run_frame.frame_name,
+            layer_id=run_frame.layer_id,
+            command=run_frame.command,
+            user_name=run_frame.user_name,
+            log_dir=run_frame.log_dir,
+            show=run_frame.show,
+            shot=run_frame.shot,
+            job_temp_dir=run_frame.job_temp_dir,
+            frame_temp_dir=run_frame.frame_temp_dir,
+            log_file=run_frame.log_file,
+            log_dir_file=run_frame.log_dir_file,
+            start_time=run_frame.start_time,
+            uid=run_frame.uid,
+            num_cores=run_frame.num_cores,
+            gid=run_frame.gid,
+            ignore_nimby=run_frame.ignore_nimby,
+            environment=run_frame.environment,
+            attributes=run_frame.attributes,
         )
         await stream.send_message(rqd_pb2.RqdStaticLaunchFrameResponse())
 

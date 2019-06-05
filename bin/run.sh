@@ -3,6 +3,12 @@
 export BASEDIR=$(cd -P -- "$(dirname -- "$(/usr/bin/realpath -- "$(dirname -- "$BASH_SOURCE")")")" && printf '%s\n' "$(pwd -P)")
 source "${BASEDIR}/bin/tooling/update_environment.sh"
 cd $BASEDIR
+
+if [[ -z "${SUDO_USER}" ]]; then
+    echo "you need to sudo this"
+    exit 1
+fi
+
 echo $SUDO_USER
 
 export LOGDIR=/var/log/asyncrqd
