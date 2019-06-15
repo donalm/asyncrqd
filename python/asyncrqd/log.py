@@ -46,9 +46,9 @@ class AsyncRQDLogger(object):
         handler = logging.handlers.TimedRotatingFileHandler(
             cls.log_filepath, "midnight", 1
         )
-        handler.setLevel(logging.DEBUG)
 
         cls._logger = structlog.get_logger(*args, **kwargs)
+        cls._logger.setLevel(logging.DEBUG)
         cls._logger.addHandler(handler)
         return cls._logger
 
