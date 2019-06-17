@@ -1,0 +1,14 @@
+#!/usr/bin/python -u
+
+import sys
+import time
+
+for x in range(1, 100):
+    sys.stdout.write(b'%02d' % (x,))
+    sys.stdout.write(" ")
+    if not x % 5:
+        sys.stdout.write("\n")
+    sys.stdout.flush()
+    time.sleep(0.03)
+
+sys.exit(1)

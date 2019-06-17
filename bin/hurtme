@@ -1,0 +1,24 @@
+#!/usr/local/pypy3/bin/pypy -u
+
+import os
+import random
+import string
+import sys
+import time
+
+print(os.environ.get("cmd_id"))
+print(os.getcwd())
+
+try:
+    iterations = int(sys.argv[-1])
+except:
+    iterations = 100
+
+characters = string.ascii_letters + string.digits
+outlines = []
+for x in range(iterations):
+    outlines.append("".join(random.choices(characters, k=128)))
+
+for index, line in enumerate(outlines):
+    print("{:4d}: {}".format(index, line))
+    time.sleep(1)
