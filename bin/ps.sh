@@ -15,4 +15,4 @@ cd "${BASEDIR}"
 
 export PYTHONIOENCODING="UTF-8"
 export PYTHONPATH="${BASEDIR}/python"
-exec "${BASEDIR}/venv_pypy${v}/bin/python" -u "${BASEDIR}/python/asyncrqd/process.py"
+exec "${BASEDIR}/venv_pypy${v}/bin/python" -u "${BASEDIR}/bin/py/process_test.py"
