@@ -7,3 +7,11 @@ grpc:
 daemon:
   log:
     path: /var/log/asyncrqd/asyncrqd.log
+    numbers:
+    - 1
+    - 2
+    - 3
+    strings:
+    - one
+    - two
+    - three
