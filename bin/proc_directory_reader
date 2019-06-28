@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+###############################################################################
+# This script reads all the contents of the /prod/PID/stat and proc/PID/status
+# files, concatenating the results together and printing them out for the
+# parent Python process to consume.
+###############################################################################
+
+/usr/bin/cat /proc/[0-9]*/stat
+echo ""
+echo ""
+/usr/bin/cat /proc/[0-9]*/status
