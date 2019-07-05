@@ -14,3 +14,5 @@ flake8-pep3101
 flake8-docstrings
 ipython
 psutil
+pyinotify
+msgpack

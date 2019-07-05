@@ -83,6 +83,7 @@ class SubprocessOutputHandler(object):
                 fh.flush()
         for ws in self._ws.values():
             ws.sendMessage(encoded_line, False)
+        return encoded_line
 
     def stdout_write(self, line):
         encoded_line = line.encode("utf-8")
@@ -92,6 +93,7 @@ class SubprocessOutputHandler(object):
                 fh.flush()
         for ws in self._ws.values():
             ws.sendMessage(encoded_line, False)
+        return encoded_line
 
     def close(self):
         for fh in self._files.values():

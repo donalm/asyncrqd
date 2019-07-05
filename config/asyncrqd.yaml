@@ -15,3 +15,9 @@ daemon:
     - one
     - two
     - three
+machine:
+  linux:
+    path_init_target: /lib/systemd/system/default.target
+    path_inittab: /etc/inittab
+    path_inittab_default: "id:5:initdefault:"
+    displays_path: /tmp/.X11-unix

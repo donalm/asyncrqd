@@ -40,9 +40,7 @@ class AsyncRQDLogger(object):
             cache_logger_on_first_use=True,
         )
 
-        cls.log_filepath = cls._log_filepath or config.get("daemon", {}).get(
-            "log", {}
-        ).get("path", "/var/log/asyncrqd/asyncrqd.log")
+        cls.log_filepath = cls._log_filepath or config.get("daemon", "log", "path")
         handler = logging.handlers.TimedRotatingFileHandler(
             cls.log_filepath, "midnight", 1
         )

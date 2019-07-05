@@ -54,11 +54,15 @@ class Config(object):
             try:
                 cls._config_data = yaml.safe_load(fh.read())
             except Exception as e:
-                log.exception(
-                    "failed to refresh config from {}: {}".format(
-                        cls._config_filepath, e
-                    )
+                msg = "failed to refresh config from {}: {}".format(
+                    cls._config_filepath, e
                 )
+                try:
+                    logger = log.get_logger()
+                    logger.exception(msg)
+                except Exception:
+                    # If config is failing, the log may not be configured.
+                    print(msg)
 
     @classmethod
     def recursive_get(cls, *keys, default=None):
@@ -74,7 +78,11 @@ class Config(object):
 
         if not keys:
             # We're at the last value requested
-            value = base.get(next_key, default)
+            try:
+                value = base.get(next_key, default)
+            except Exception as e:
+                print(base)
+                raise
             return value
 
         # The key doesn't exit in the value
